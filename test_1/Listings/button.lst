@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   BUTTON                                                            02/14/2026 13:30:54 PAGE 1   
+C51 COMPILER V9.60.7.0   BUTTON                                                            02/14/2026 15:03:59 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE BUTTON
@@ -37,7 +37,7 @@ line level    source
   27          {
   28   1          static unsigned char first_key_pressed = 0;  // 记忆第一个按键
   29   1          unsigned char row, col, temp_key;
-  30   1          unsigned char current_scan_result = 0;
+  30   1      
   31   1      
   32   1          // 设置列线为输入，行线为输出
   33   1          P3 = 0xF0;  // P3.4-P3.7设为输入(高电平)，P3.0-P3.3设为输出(低电平)
@@ -62,7 +62,7 @@ line level    source
   52   3                  case 0: P3 = 0xFE; break;  // 11111110, 只有ROW0为低
   53   3                  case 1: P3 = 0xFD; break;  // 11111101, 只有ROW1为低
   54   3                  case 2: P3 = 0xFB; break;  // 11111011, 只有ROW2为低
-C51 COMPILER V9.60.7.0   BUTTON                                                            02/14/2026 13:30:54 PAGE 2   
+C51 COMPILER V9.60.7.0   BUTTON                                                            02/14/2026 15:03:59 PAGE 2   
 
   55   3                  case 3: P3 = 0xF7; break;  // 11110111, 只有ROW3为低
   56   3              }
@@ -93,7 +93,7 @@ line level    source
   81   3                  
   82   3                  if(temp_key != 0)
   83   3                  {
-  84   4                      current_scan_result = temp_key;
+  84   4      
   85   4                      
   86   4                      // 如果还没有记录第一个按键，则记录它
   87   4                      if(first_key_pressed == 0)
@@ -126,7 +126,7 @@ line level    source
  114   1          {
  115   2              delay_ms(10);  // 延时去抖动
  116   2              if(scan_key() == key)  // 再次确认按键
-C51 COMPILER V9.60.7.0   BUTTON                                                            02/14/2026 13:30:54 PAGE 3   
+C51 COMPILER V9.60.7.0   BUTTON                                                            02/14/2026 15:03:59 PAGE 3   
 
  117   2                  return key;
  118   2          }
@@ -166,11 +166,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    244    ----
+   CODE SIZE        =    239    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      1       1
+   DATA SIZE        =      1    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

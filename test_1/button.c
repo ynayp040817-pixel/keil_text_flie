@@ -27,7 +27,7 @@ unsigned char scan_key()
 {
     static unsigned char first_key_pressed = 0;  // 记忆第一个按键
     unsigned char row, col, temp_key;
-    unsigned char current_scan_result = 0;
+
 
     // 设置列线为输入，行线为输出
     P3 = 0xF0;  // P3.4-P3.7设为输入(高电平)，P3.0-P3.3设为输出(低电平)
@@ -81,7 +81,7 @@ unsigned char scan_key()
             
             if(temp_key != 0)
             {
-                current_scan_result = temp_key;
+
                 
                 // 如果还没有记录第一个按键，则记录它
                 if(first_key_pressed == 0)
