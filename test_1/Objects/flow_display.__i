@@ -1,0 +1,1 @@
+"flow_display.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(C:\Keil_v5\C51\INC\STC) DEBUG OBJECTEXTEND PRINT(.\Listings\flow_display.lst) TABS (2) OBJECT(.\Objects\flow_display.obj)

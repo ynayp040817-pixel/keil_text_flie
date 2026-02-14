@@ -1,0 +1,74 @@
+C51 COMPILER V9.60.7.0   SIMPLE_DISPLAY                                                    02/14/2026 15:40:15 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SIMPLE_DISPLAY
+OBJECT MODULE PLACED IN .\Objects\simple_display.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE simple_display.c OPTIMIZE(8,SPEED) BROWSE INCDIR(C:\Keil_v5\C51\INC\STC)
+                    - DEBUG OBJECTEXTEND PRINT(.\Listings\simple_display.lst) TABS(2) OBJECT(.\Objects\simple_display.obj)
+
+line level    source
+
+   1          #include <STC89C5xRC.H>
+   2          
+   3          // 数码管段码定义 (共阴极数码管)
+   4          // 段定义: DP-G-F-E-D-C-B-A (P0.7-P0.6-P0.5-P0.4-P0.3-P0.2-P0.1-P0.0)
+   5          unsigned char code seg_code[] = {
+   6              0x3F,  // 0 - 00111111
+   7              0x06,  // 1 - 00000110
+   8              0x5B,  // 2 - 01011011
+   9              0x4F,  // 3 - 01001111
+  10              0x66,  // 4 - 01100110
+  11              0x6D,  // 5 - 01101101
+  12              0x7D,  // 6 - 01111101
+  13              0x07,  // 7 - 00000111
+  14              0x7F,  // 8 - 01111111
+  15              0x6F,  // 9 - 01101111
+  16          };
+  17          
+  18          // 简单延时函数
+  19          void delay_ms(unsigned int ms)
+  20          {
+  21   1          unsigned int i, j;
+  22   1          for(i = 0; i < ms; i++)
+  23   1              for(j = 0; j < 114; j++);
+  24   1      }
+  25          
+  26          // 单个数码管显示函数
+  27          void display_digit(unsigned char digit)
+  28          {
+  29   1          if(digit > 9) digit = 0;  // 只显示0-9
+  30   1          P0 = seg_code[digit];     // 将段码输出到P0口
+  31   1      }
+  32          
+  33          // 主函数 - 简化版
+  34          void main()
+  35          {
+  36   1          unsigned char counter = 0;
+  37   1          
+  38   1          // 初始化端口
+  39   1          P0 = 0xFF;  // P0初始化为高电平（所有段熄灭）
+  40   1          
+  41   1          while(1)
+  42   1          {
+  43   2              // 循环显示0-9
+  44   2              display_digit(counter % 10);
+  45   2              delay_ms(1000);  // 每秒切换一个数字
+  46   2              counter++;
+  47   2          }
+  48   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     73    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   SIMPLE_DISPLAY                                                    02/14/2026 15:40:15 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

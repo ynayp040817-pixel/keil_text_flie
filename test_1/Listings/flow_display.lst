@@ -1,0 +1,84 @@
+C51 COMPILER V9.60.7.0   FLOW_DISPLAY                                                      02/14/2026 15:45:43 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE FLOW_DISPLAY
+OBJECT MODULE PLACED IN .\Objects\flow_display.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE flow_display.c OPTIMIZE(8,SPEED) BROWSE INCDIR(C:\Keil_v5\C51\INC\STC) D
+                    -EBUG OBJECTEXTEND PRINT(.\Listings\flow_display.lst) TABS(2) OBJECT(.\Objects\flow_display.obj)
+
+line level    source
+
+   1          #include <STC89C5xRC.H>
+   2          
+   3          // 数码管段码定义 (共阴极数码管)
+   4          // 段定义: DP-G-F-E-D-C-B-A (P0.7-P0.6-P0.5-P0.4-P0.3-P0.2-P0.1-P0.0)
+   5          unsigned char code seg_code[] = {
+   6              0x3F,  // 0 - 00111111
+   7              0x06,  // 1 - 00000110
+   8              0x5B,  // 2 - 01011011
+   9              0x4F,  // 3 - 01001111
+  10              0x66,  // 4 - 01100110
+  11              0x6D,  // 5 - 01101101
+  12              0x7D,  // 6 - 01111101
+  13              0x07,  // 7 - 00000111
+  14              0x7F,  // 8 - 01111111
+  15              0x6F,  // 9 - 01101111
+  16          };
+  17          
+  18          // 延时函数
+  19          void delay_ms(unsigned int ms)
+  20          {
+  21   1          unsigned int i, j;
+  22   1          for(i = 0; i < ms; i++)
+  23   1              for(j = 0; j < 114; j++);
+  24   1      }
+  25          
+  26          // 主函数 - 8位数码管流水显示
+  27          void main()
+  28          {
+  29   1          unsigned char position = 0;  // 当前显示位置
+  30   1          unsigned char digit = 0;     // 当前显示的数字
+  31   1          
+  32   1          // 初始化端口
+  33   1          P0 = 0x00;  // 段码关闭
+  34   1          P2 = 0xFF;  // 位选关闭（假设P2控制位选，低电平选中数码管）
+  35   1          
+  36   1          while(1)
+  37   1          {
+  38   2              // 在指定位置显示数字
+  39   2              P0 = seg_code[digit];      // 输出段码到P0
+  40   2              P2 = ~(1 << position);     // 选中第position个数码管（假设低电平选中）
+  41   2              
+  42   2              delay_ms(500);             // 显示一段时间
+  43   2              
+  44   2              // 移动到下一个位置
+  45   2              position++;
+  46   2              if(position >= 8)          // 8个数码管循环
+  47   2              {
+  48   3                  position = 0;
+  49   3                  digit++;               // 更换显示的数字
+  50   3                  if(digit > 9) digit = 0;  // 数字0-9循环
+  51   3              }
+  52   2              
+  53   2              // 关闭显示，避免拖影
+  54   2              P0 = 0x00;
+C51 COMPILER V9.60.7.0   FLOW_DISPLAY                                                      02/14/2026 15:45:43 PAGE 2   
+
+  55   2              P2 = 0xFF;
+  56   2              delay_ms(1);              // 短暂消隐时间
+  57   2          }
+  58   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    106    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
