@@ -1,21 +1,23 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    02/14/2026  15:03:59  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    02/14/2026  15:32:21  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\button.obj TO .\Objects\test1_button PRINT (.\Listings\test1_button.m51) RAMSIZE (
->> 256)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\display.obj TO .\Objects\test1_button PRINT (.\Listings\test1_button.m51) RAMSIZE 
+>> (256)
 
 
 MEMORY MODEL: SMALL
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\button.obj (BUTTON)
+  .\Objects\display.obj (DISPLAY)
   C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
-  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?COPY)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?UIDIV)
 
 
-LINK MAP OF MODULE:  .\Objects\test1_button (BUTTON)
+LINK MAP OF MODULE:  .\Objects\test1_button (DISPLAY)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -23,50 +25,53 @@ LINK MAP OF MODULE:  .\Objects\test1_button (BUTTON)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            DATA    0008H     0001H     UNIT         ?DT?BUTTON
-            IDATA   0009H     0001H     UNIT         ?STACK
+            DATA    0008H     000BH     UNIT         _DATA_GROUP_
+            IDATA   0013H     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
                     0003H     07FDH                  *** GAP ***
-            CODE    0800H     0093H     UNIT         ?PR?SCAN_KEY?BUTTON
-            CODE    0893H     008CH     UNIT         ?C_C51STARTUP
-            CODE    091FH     0020H     UNIT         ?PR?_DELAY_MS?BUTTON
-            CODE    093FH     0020H     UNIT         ?PR?MAIN?BUTTON
-            CODE    095FH     001CH     UNIT         ?PR?GET_KEY?BUTTON
-            CODE    097BH     0004H     UNIT         ?C_INITSEG
+            CODE    0800H     0178H     UNIT         ?C?LIB_CODE
+            CODE    0978H     0081H     UNIT         ?PR?MAIN?DISPLAY
+            CODE    09F9H     0043H     UNIT         ?PR?_DISPLAY_MULTI_DIGIT?DISPLAY
+            CODE    0A3CH     0020H     UNIT         ?PR?_DELAY_MS?DISPLAY
+            CODE    0A5CH     0014H     UNIT         ?CO?DISPLAY
+            CODE    0A70H     0010H     UNIT         ?PR?_DISPLAY_SINGLE_DIGIT?DISPLAY
+            CODE    0A80H     000CH     UNIT         ?C_C51STARTUP
 
 
 
-OVERLAY MAP OF MODULE:   .\Objects\test1_button (BUTTON)
+OVERLAY MAP OF MODULE:   .\Objects\test1_button (DISPLAY)
 
 
-SEGMENT
-  +--> CALLED SEGMENT
----------------------
-?C_C51STARTUP
-  +--> ?PR?MAIN?BUTTON
-  +--> ?C_INITSEG
+SEGMENT                                     DATA_GROUP 
+  +--> CALLED SEGMENT                     START    LENGTH
+---------------------------------------------------------
+?C_C51STARTUP                             -----    -----
+  +--> ?PR?MAIN?DISPLAY
 
-?PR?MAIN?BUTTON
-  +--> ?PR?GET_KEY?BUTTON
+?PR?MAIN?DISPLAY                          0008H    0006H
+  +--> ?CO?DISPLAY
+  +--> ?PR?_DISPLAY_MULTI_DIGIT?DISPLAY
+  +--> ?PR?_DELAY_MS?DISPLAY
 
-?PR?GET_KEY?BUTTON
-  +--> ?PR?SCAN_KEY?BUTTON
-  +--> ?PR?_DELAY_MS?BUTTON
+?PR?_DISPLAY_MULTI_DIGIT?DISPLAY          000EH    0005H
+  +--> ?CO?DISPLAY
+  +--> ?PR?_DELAY_MS?DISPLAY
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/14/2026  15:32:21  PAGE 2
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\test1_button (BUTTON)
 
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/14/2026  15:03:59  PAGE 2
-
+SYMBOL TABLE OF MODULE:  .\Objects\test1_button (DISPLAY)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        BUTTON
+  -------         MODULE        DISPLAY
   C:0000H         SYMBOL        _ICE_DUMMY_
+  C:09F9H         PUBLIC        _display_multi_digit
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
@@ -75,14 +80,14 @@ SYMBOL TABLE OF MODULE:  .\Objects\test1_button (BUTTON)
   D:00E8H         PUBLIC        P4
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
-  C:093FH         PUBLIC        main
-  B:00A0H.3       PUBLIC        sound
+  C:0978H         PUBLIC        main
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-  C:0800H         PUBLIC        scan_key
-  C:091FH         PUBLIC        _delay_ms
+  C:0A5CH         PUBLIC        seg_code
+  C:0A6CH         SYMBOL        _?ix1000
+  C:0A3CH         PUBLIC        _delay_ms
+  C:0A70H         PUBLIC        _display_single_digit
   D:00C8H         PUBLIC        T2CON
-  C:095FH         PUBLIC        get_key
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DELAY_MS
   D:0006H         SYMBOL        ms
@@ -90,125 +95,86 @@ SYMBOL TABLE OF MODULE:  .\Objects\test1_button (BUTTON)
   D:0004H         SYMBOL        i
   D:0002H         SYMBOL        j
   -------         ENDDO         
-  C:091FH         LINE#         16
-  C:091FH         LINE#         17
-  C:091FH         LINE#         19
-  C:0929H         LINE#         20
-  C:093EH         LINE#         21
+  C:0A3CH         LINE#         25
+  C:0A3CH         LINE#         26
+  C:0A3CH         LINE#         28
+  C:0A46H         LINE#         29
+  C:0A5BH         LINE#         30
   -------         ENDPROC       _DELAY_MS
-  -------         PROC          SCAN_KEY
+  -------         PROC          _DISPLAY_SINGLE_DIGIT
+  D:0007H         SYMBOL        digit
+  C:0A70H         LINE#         33
+  C:0A70H         LINE#         34
+  C:0A70H         LINE#         35
+  C:0A78H         LINE#         36
+  C:0A7FH         LINE#         37
+  -------         ENDPROC       _DISPLAY_SINGLE_DIGIT
+  -------         PROC          _DISPLAY_MULTI_DIGIT
+  D:000EH         SYMBOL        digits
+  D:0011H         SYMBOL        num_digits
   -------         DO            
-  D:0008H         SYMBOL        first_key_pressed
-  D:0007H         SYMBOL        row
-  D:0005H         SYMBOL        col
-  D:0006H         SYMBOL        temp_key
+  D:0012H         SYMBOL        i
   -------         ENDDO         
-  C:0800H         LINE#         26
-  C:0800H         LINE#         27
-  C:0800H         LINE#         33
-  C:0803H         LINE#         36
-  C:080BH         LINE#         37
-  C:080BH         LINE#         39
-  C:080EH         LINE#         40
-  C:0810H         LINE#         41
-  C:0810H         LINE#         44
-  C:0812H         LINE#         45
-  C:0812H         LINE#         47
-  C:0815H         LINE#         50
-  C:0823H         LINE#         51
-  C:0823H         LINE#         52
-  C:0828H         LINE#         53
-  C:082DH         LINE#         54
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/14/2026  15:03:59  PAGE 3
+  C:09F9H         LINE#         40
+  C:0A01H         LINE#         41
+  C:0A01H         LINE#         43
+  C:0A0BH         LINE#         44
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/14/2026  15:32:21  PAGE 3
 
 
-  C:0832H         LINE#         55
-  C:0835H         LINE#         56
-  C:0835H         LINE#         59
-  C:083AH         LINE#         61
-  C:083EH         LINE#         62
-  C:083EH         LINE#         63
-  C:084FH         LINE#         64
-  C:084FH         LINE#         65
-  C:084FH         LINE#         66
-  C:0856H         LINE#         67
-  C:0858H         LINE#         68
-  C:0858H         LINE#         69
-  C:0860H         LINE#         70
-  C:0862H         LINE#         71
-  C:0862H         LINE#         72
-  C:086AH         LINE#         73
-  C:086CH         LINE#         74
-  C:086CH         LINE#         75
-  C:0874H         LINE#         76
-  C:0876H         LINE#         77
-  C:0876H         LINE#         78
-  C:0878H         LINE#         79
-  C:0878H         LINE#         80
-  C:0878H         LINE#         82
-  C:087BH         LINE#         83
-  C:087BH         LINE#         87
-  C:087FH         LINE#         88
-  C:087FH         LINE#         89
-  C:0881H         LINE#         90
-  C:0881H         LINE#         93
-  C:0884H         LINE#         94
-  C:0884H         LINE#         95
-  C:0884H         LINE#         96
-  C:088AH         LINE#         99
-  C:088EH         LINE#         100
-  C:088EH         LINE#         101
-  C:0890H         LINE#         102
-  C:0890H         LINE#         104
-  C:0892H         LINE#         105
-  -------         ENDPROC       SCAN_KEY
-  -------         PROC          GET_KEY
-  -------         DO            
-  D:0001H         SYMBOL        key
-  -------         ENDDO         
-  C:095FH         LINE#         108
-  C:095FH         LINE#         109
-  C:095FH         LINE#         112
-  C:0964H         LINE#         113
-  C:0967H         LINE#         114
-  C:0967H         LINE#         115
-  C:096EH         LINE#         116
-  C:0975H         LINE#         117
-  C:0978H         LINE#         118
-  C:0978H         LINE#         119
-  C:097AH         LINE#         120
-  -------         ENDPROC       GET_KEY
+  C:0A0BH         LINE#         46
+  C:0A1BH         LINE#         49
+  C:0A30H         LINE#         52
+  C:0A37H         LINE#         53
+  C:0A3BH         LINE#         54
+  -------         ENDPROC       _DISPLAY_MULTI_DIGIT
   -------         PROC          MAIN
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/14/2026  15:03:59  PAGE 4
-
-
   -------         DO            
-  D:0007H         SYMBOL        key_value
+  D:0008H         SYMBOL        counter
+  D:0009H         SYMBOL        display_buffer
+  D:000DH         SYMBOL        refresh_count
   -------         ENDDO         
-  C:093FH         LINE#         122
-  C:093FH         LINE#         123
-  C:093FH         LINE#         127
-  C:0942H         LINE#         128
-  C:0945H         LINE#         130
-  C:0945H         LINE#         131
-  C:0945H         LINE#         132
-  C:0948H         LINE#         134
-  C:094BH         LINE#         135
-  C:094BH         LINE#         140
-  C:094EH         LINE#         141
-  C:0950H         LINE#         143
-  C:0956H         LINE#         144
-  C:0958H         LINE#         145
-  C:095AH         LINE#         147
-  C:095AH         LINE#         148
-  C:095DH         LINE#         149
-  C:095DH         LINE#         150
+  C:0978H         LINE#         57
+  C:0978H         LINE#         58
+  C:0978H         LINE#         59
+  C:097BH         LINE#         60
+  C:098CH         LINE#         64
+  C:098FH         LINE#         65
+  C:0992H         LINE#         67
+  C:0992H         LINE#         68
+  C:0992H         LINE#         75
+  C:09A6H         LINE#         76
+  C:09B3H         LINE#         77
+  C:09C0H         LINE#         78
+  C:09C9H         LINE#         81
+  C:09CCH         LINE#         82
+  C:09CCH         LINE#         83
+  C:09D7H         LINE#         84
+  C:09DEH         LINE#         85
+  C:09E7H         LINE#         87
+  C:09E9H         LINE#         88
+  C:09F7H         LINE#         89
   -------         ENDPROC       MAIN
-  -------         ENDMOD        BUTTON
+  -------         ENDMOD        DISPLAY
+
+  -------         MODULE        ?C?COPY
+  C:08D0H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+  -------         MODULE        ?C?CLDOPTR
+  C:08F6H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?UIDIV
+  C:0923H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DISPLAY_SINGLE_DIGIT?DISPLAY
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00F2H BYTE (11%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0108H BYTE (12%) *
 ******************************************************************************
 
-Program Size: data=10.0 xdata=0 code=386
-LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Program Size: data=20.0 xdata=0 code=655
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
