@@ -1,0 +1,176 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    02/13/2026  17:11:58  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\button.obj TO .\Objects\test1_sound PRINT (.\Listings\test1_sound.m51) RAMSIZE (25
+>> 6)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\button.obj (BUTTON)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\test1_sound (BUTTON)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0073H     UNIT         ?PR?SCAN_KEY?BUTTON
+            CODE    0873H     0020H     UNIT         ?PR?_DELAY_MS?BUTTON
+            CODE    0893H     001CH     UNIT         ?PR?GET_KEY?BUTTON
+            CODE    08AFH     0019H     UNIT         ?PR?MAIN?BUTTON
+            CODE    08C8H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\test1_sound (BUTTON)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?BUTTON
+
+?PR?MAIN?BUTTON
+  +--> ?PR?GET_KEY?BUTTON
+
+?PR?GET_KEY?BUTTON
+  +--> ?PR?SCAN_KEY?BUTTON
+  +--> ?PR?_DELAY_MS?BUTTON
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\test1_sound (BUTTON)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BUTTON
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/13/2026  17:11:58  PAGE 2
+
+
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00C0H         PUBLIC        XICON
+  D:00B0H         PUBLIC        P3
+  D:00E8H         PUBLIC        P4
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:08AFH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0800H         PUBLIC        scan_key
+  C:0873H         PUBLIC        _delay_ms
+  D:00C8H         PUBLIC        T2CON
+  C:0893H         PUBLIC        get_key
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0873H         LINE#         16
+  C:0873H         LINE#         17
+  C:0873H         LINE#         19
+  C:087DH         LINE#         20
+  C:0892H         LINE#         21
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          SCAN_KEY
+  -------         DO            
+  D:0007H         SYMBOL        row
+  D:0006H         SYMBOL        col
+  -------         ENDDO         
+  C:0800H         LINE#         25
+  C:0800H         LINE#         26
+  C:0800H         LINE#         30
+  C:0803H         LINE#         33
+  C:080BH         LINE#         34
+  C:080EH         LINE#         37
+  C:0810H         LINE#         38
+  C:0810H         LINE#         40
+  C:0813H         LINE#         43
+  C:0821H         LINE#         44
+  C:0821H         LINE#         45
+  C:0826H         LINE#         46
+  C:082BH         LINE#         47
+  C:0830H         LINE#         48
+  C:0833H         LINE#         49
+  C:0833H         LINE#         52
+  C:0837H         LINE#         54
+  C:0847H         LINE#         55
+  C:0847H         LINE#         56
+  C:0847H         LINE#         57
+  C:084FH         LINE#         58
+  C:084FH         LINE#         59
+  C:0858H         LINE#         60
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  02/13/2026  17:11:58  PAGE 3
+
+
+  C:0858H         LINE#         61
+  C:0861H         LINE#         62
+  C:0861H         LINE#         63
+  C:086AH         LINE#         64
+  C:086AH         LINE#         65
+  C:0870H         LINE#         67
+  C:0872H         LINE#         68
+  -------         ENDPROC       SCAN_KEY
+  -------         PROC          GET_KEY
+  -------         DO            
+  D:0001H         SYMBOL        key
+  -------         ENDDO         
+  C:0893H         LINE#         71
+  C:0893H         LINE#         72
+  C:0893H         LINE#         75
+  C:0898H         LINE#         76
+  C:089BH         LINE#         77
+  C:089BH         LINE#         78
+  C:08A2H         LINE#         79
+  C:08A9H         LINE#         80
+  C:08ACH         LINE#         81
+  C:08ACH         LINE#         82
+  C:08AEH         LINE#         83
+  -------         ENDPROC       GET_KEY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0007H         SYMBOL        key_value
+  -------         ENDDO         
+  C:08AFH         LINE#         85
+  C:08AFH         LINE#         86
+  C:08AFH         LINE#         90
+  C:08B2H         LINE#         92
+  C:08B2H         LINE#         93
+  C:08B2H         LINE#         94
+  C:08B5H         LINE#         96
+  C:08B8H         LINE#         97
+  C:08B8H         LINE#         102
+  C:08BBH         LINE#         105
+  C:08C3H         LINE#         106
+  C:08C3H         LINE#         108
+  C:08C3H         LINE#         109
+  C:08C6H         LINE#         110
+  C:08C6H         LINE#         111
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BUTTON
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00C8H BYTE ( 9%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=215
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,24 @@
+C51 COMPILER V9.60.7.0   BOARD                                                             02/13/2026 15:25:40 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE BOARD
+OBJECT MODULE PLACED IN .\Objects\board.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE board.c OPTIMIZE(8,SPEED) BROWSE INCDIR(C:\Keil_v5\C51\INC\STC) DEBUG OB
+                    -JECTEXTEND PRINT(.\Listings\board.lst) TABS(2) OBJECT(.\Objects\board.obj)
+
+line level    source
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
