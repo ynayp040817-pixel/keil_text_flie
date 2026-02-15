@@ -1,50 +1,37 @@
-#include <STC89C5xRC.H>
+#include <STC89C5xRC.H>  // 适配你的STC89C5x系列单片机
 
-// 标准段码定义 (共阴极数码管)
-unsigned char code seg_code[] = {
-    0x3F,  // 0 - 00111111
-    0x06,  // 1 - 00000110
-    0x5B,  // 2 - 01011011
-    0x4F,  // 3 - 01001111
-    0x66,  // 4 - 01100110
-    0x6D,  // 5 - 01101101
-    0x7D,  // 6 - 01111101
-    0x07,  // 7 - 00000111
-    0x7F,  // 8 - 01111111
-    0x6F,  // 9 - 01101111
-};
+// 定义锁存引脚（和你的硬件完全对应）
+sbit seg_lock = P2^6;  // 段选锁存引脚（P2.6/DULA）
+sbit bit_lock = P2^7;  // 位选锁存引脚（P2.7/WELA）
 
-// 延时函数
-void delay_ms(unsigned int ms)
-{
+// 共阴极数码管段码表（0-9，直接对应P0口输出）
+unsigned char seg_code[] = {0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
+
+// 固定位码（只选通1个显示位，比如第1位，共阴极低电平有效）
+#define BIT_CODE 0x7F  // 如果你要选其他位，改这个值即可（比如0xBF对应第2位）
+
+// 延时函数（ms级，晶振11.0592MHz，用于控制数字停留时间）
+void delay_ms(unsigned int ms) {
     unsigned int i, j;
-    for(i = 0; i < ms; i++)
-        for(j = 0; j < 114; j++);
+    for(i = ms; i > 0; i--)
+        for(j = 114; j > 0; j--);
 }
 
-void main()
-{
-    unsigned char counter = 0;
+void main(void) {
+    unsigned char num = 0;  // 用于循环0-9的变量
+    seg_lock = 0;bit_lock = 1;
+    P0 = BIT_CODE;
+    bit_lock = 0;
+    while(1) {  // 无限循环
+        seg_lock = 1;
 
-    // 初始化端口
-    P0 = 0xFF;  // P0初始化为高电平
-    P1 = 0xFF;  // P1初始化为高电平
-    P2 = 0xFF;  // P2初始化为高电平
-    P3 = 0xFF;  // P3初始化为高电平
+        P0 = seg_code[num];  // P0口输出0-9对应的段码
 
-    while(1)
-    {
-        // 根据您的描述，P0口控制段选，P2.7控制位选
-        unsigned char display_data = seg_code[counter % 10];
-        
-        // 设置段选（P0口）
-        P0 = display_data;
-        
-        // 设置位选（P2.7），选中特定的数码管
-        P2 = 0xBF;  // P2.7 = 0，选中特定数码管
-        
-        delay_ms(1000);  // 每秒切换一个数字
-        
-        counter++;
+        // 第三步：数字停留500ms，然后切换下一个数字
+        delay_ms(1000);
+        num++;               // 数字+1
+        if(num > 9) {        // 超过9则重置为0，循环
+            num = 0;
+        }
     }
 }
