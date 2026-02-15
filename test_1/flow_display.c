@@ -33,13 +33,14 @@ void main(void) {
         get_digits(counter, digits);
         // 逐位显示，实现动态扫描效果
         for(pos = 0; pos < 8; pos++) {
-
+            seg_lock = 0;
             bit_lock = 0; //锁住位置
-            seg_lock = 1;
+
 
             P0 = seg_code[digits[pos]];
+            seg_lock = 1;
             seg_lock = 0; //锁住数字
-            bit_lock = 1; //打开位置 循环pos
+
             // 输出位选码（选择哪个数码管）
             switch(pos) {
                 case 0: P0 = 0xFE; break;  // 选通第1位 (11111110)
@@ -52,7 +53,7 @@ void main(void) {
                 case 7: P0 = 0x7F; break;  // 选通第8位 (01111111)
             }
 
-
+            bit_lock = 1; //打开位置 循环pos
             delay_ms(1);
             P0 = 0xFF;
             seg_lock = 0;
