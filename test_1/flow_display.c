@@ -52,9 +52,9 @@ void main(void) {
                 case 7: P0 = 0x7F; break;  // 选通第8位 (01111111)
             }
 
-            bit_lock = 0;
+
             delay_ms(1);
-            P0 = 0x00;
+            P0 = 0xFF;
             seg_lock = 0;
             bit_lock = 0;
             count_timer++;
