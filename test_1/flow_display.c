@@ -22,12 +22,39 @@ void get_digits(unsigned long num, unsigned char *digits) {
         num /= 10;
     }
 }
+static unsigned long counter = 0;  // 计数器，最大到99999999
+// 定时器0初始化（你的代码）
+void timer0_init() {
+    TMOD |= 0x01;
+    TH0 = 0xFC;
+    TL0 = 0x66;
+    ET0 = 1;
+    EA = 1;
+    TR0 = 1;
+}
+unsigned int timer_count = 0;
+// 定时器0中断服务函数（关键！溢出后执行）
+void timer0_isr() interrupt 1 {
+    // 步骤1：重装初值（模式1溢出后不会自动恢复，必须手动装）
+    TH0 = 0xFC;
+    TL0 = 0x66;
 
+    // 步骤2：执行你要的定时逻辑（比如1秒计数+1）
+    timer_count++;
+    if(timer_count >= 1000) {  // 1000次中断=1秒
+        timer_count = 0;
+        counter++;  // 你的计数器+1
+        if(counter > 99999999) counter = 0;
+    }
+}
+unsigned char digits[8];    // 存储8位数字
+int pos = 0;// 当前显示位置
 void main(void) {
-    unsigned long counter = 0;  // 计数器，最大到99999999
-    unsigned char digits[8];    // 存储8位数字
-    unsigned int count_timer = 0;
-    int pos = 0;          // 当前显示位置
+    timer0_init();
+
+    
+
+
     while(1) {  // 无限循环
         // 获取当前计数值的各位数字
         get_digits(counter, digits);
@@ -58,17 +85,7 @@ void main(void) {
             P0 = 0xFF;
             seg_lock = 0;
             bit_lock = 0;
-            count_timer++;
-        }
 
-
-        if (count_timer>600)
-        {
-            count_timer = 0;
-            counter++;  // 计数器递增
-            if(counter > 99999999) {  // 达到最大值后重置
-                counter = 0;
-            }
         }
     }
 }
